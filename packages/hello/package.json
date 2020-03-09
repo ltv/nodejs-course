@@ -1,0 +1,13 @@
+{
+  "name": "hello",
+  "version": "0.1.0",
+  "description": "Hello World Project",
+  "main": "index.js",
+  "repository": "https://github.com/ltv/ltv-nodejs.git",
+  "author": "Luc <luc@ltv.vn>",
+  "license": "MIT",
+  "scripts": {
+      "start": "node index.js",
+      "serve": "nodemon index.js"
+  }
+}
