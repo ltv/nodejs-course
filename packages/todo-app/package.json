@@ -1,0 +1,17 @@
+{
+  "name": "todo-app",
+  "version": "0.1.0",
+  "description": "Demo todo App with Express Server",
+  "main": "index.js",
+  "repository": "https://github.com/ltv/nodejs-course.git",
+  "author": "Luc <luc@ltv.vn>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "serve:frontend": "yarn workspace @app/frontend serve",
+    "serve:backend": "yarn workspace @app/backend serve"
+  }
+}
