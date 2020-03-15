@@ -35,7 +35,8 @@ export default class Service {
     const { namespace = null } = this.defaultOptions;
     // Accept */*
     axios.defaults.headers.common.Accept = '*/*';
-    const endpoint = process.env.VUE_APP_SERVICE_ENDPOINT || '';
+    const endpoint =
+      process.env.VUE_APP_SERVICE_ENDPOINT || 'http://localhost:3000/api';
     const baseURL = endpoint + (namespace ? `/${namespace}/` : '/');
     this.axios = axios.create({
       baseURL,

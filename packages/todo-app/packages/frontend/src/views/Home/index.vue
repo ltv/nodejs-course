@@ -22,7 +22,12 @@
           :class="{ completed: todo.completed, editing: todo == editedTodo }"
         >
           <div class="view">
-            <input class="toggle" type="checkbox" v-model="todo.completed" />
+            <input
+              class="toggle"
+              type="checkbox"
+              v-model="todo.completed"
+              @change="handleClickCompleteTodo(todo)"
+            />
             <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
             <button class="destroy" @click="removeTodo(todo)"></button>
           </div>
@@ -80,6 +85,7 @@ import { Todo } from '../../store';
       'removeTodo',
       'removeCompleted',
       'updateTodo',
+      'getTodoList',
     ]),
   },
   directives: {
@@ -110,6 +116,7 @@ export default class Home extends Vue {
   public removeTodo!: (todo: Todo) => void;
   public removeCompleted!: () => void;
   public updateTodo!: (todo: Todo) => void;
+  public getTodoList!: (completed?: boolean) => Todo[];
 
   public get filteredTodos(): Todo[] {
     const filters: { [key: string]: Todo[] } = {
@@ -164,6 +171,10 @@ export default class Home extends Vue {
     todo.title = this.beforeEditCache || '';
   }
 
+  public handleClickCompleteTodo(todo: Todo) {
+    this.updateTodo(todo);
+  }
+
   public onHashChange() {
     const visibility = window.location.hash.replace(/#\/?/, '');
     if (['all', 'active', 'completed'].indexOf(visibility) !== -1) {
@@ -176,6 +187,7 @@ export default class Home extends Vue {
 
   public created() {
     window.addEventListener('hashchange', this.onHashChange);
+    this.getTodoList();
   }
 }
 </script>

@@ -1,12 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import { HomeService } from '../views/Home/HomeService';
+
+const service = new HomeService();
+
 Vue.use(Vuex);
 
 export interface Todo {
   id: number;
-  completed: boolean;
   title: string;
+  completed?: boolean;
 }
 
 interface RootState {
@@ -20,13 +24,9 @@ export default new Vuex.Store<RootState>({
     visibility: 'all',
   },
   mutations: {
-    ADD_NEW_TODO(state, title) {
+    ADD_NEW_TODO(state, todo) {
       const { todos } = state;
-      todos.push({
-        id: todos.length + 1,
-        title,
-        completed: false,
-      });
+      todos.push(todo);
       state.todos = [...todos];
     },
     SET_ALL_DONE(state) {
@@ -47,22 +47,45 @@ export default new Vuex.Store<RootState>({
         todos[todoIdx] = { ...todo };
       }
     },
+    SET_TODO_LIST(state, todos: Todo[]) {
+      state.todos = [...todos];
+    },
   },
   actions: {
-    addNewTodo({ commit }, title: Todo) {
-      commit('ADD_NEW_TODO', title);
+    async addNewTodo({ commit, state }, title: string) {
+      // commit('ADD_NEW_TODO', title);
+      // call API add new Todo. Add ok -> push store. Failed -> Alert Error.
+      const { todos } = state;
+      const todo = await service.createTodo({
+        id: todos.length + 1,
+        title,
+      });
+      if (todo) {
+        commit('ADD_NEW_TODO', todo);
+      }
     },
     setAllDone({ commit }) {
       commit('SET_ALL_DONE');
     },
-    removeTodo({ commit }, todo: Todo) {
-      commit('REMOVE_TODO', todo);
+    async removeTodo({ commit }, todo: Todo) {
+      const delResult = service.deleteTodo(todo.id);
+      if (delResult) {
+        commit('REMOVE_TODO', todo);
+      }
     },
     removeCompleted({ commit }) {
       commit('REMOVE_COMPLETED');
     },
-    updateTodo({ commit }, todo: Todo) {
-      commit('UPDATE_TODO', todo);
+    async updateTodo({ commit }, todo: Todo) {
+      // commit('UPDATE_TODO', todo);
+      const updated = await service.updateTodo(todo);
+      if (updated) {
+        commit('UPDATE_TODO', updated);
+      }
+    },
+    async getTodoList({ commit }, completed) {
+      const todos = await service.getTodoList(completed);
+      commit('SET_TODO_LIST', todos);
     },
   },
   getters: {
