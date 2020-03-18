@@ -12,6 +12,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/api', router);
+app.get('/', (_, res) => {
+  res.send('Hello. This is TODO App APIs');
+});
 
 app.listen(port, () => {
   console.log(`TODO app listening on port ${port}!`);
