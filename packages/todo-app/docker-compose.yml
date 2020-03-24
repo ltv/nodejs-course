@@ -1,0 +1,15 @@
+version: "3.3"
+
+services:
+  backend:
+    image: docker.pkg.github.com/ltv/nodejs-course/todoapp-backend:0.1
+    ports:
+      - 3000:3000
+    deploy:
+      replicas: 12
+  frontend:
+    image: docker.pkg.github.com/ltv/nodejs-course/todoapp-frontend:0.1
+    ports:
+      - 80:80
+    deploy:
+      replicas: 6
