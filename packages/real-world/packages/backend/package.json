@@ -1,0 +1,21 @@
+{
+  "name": "@app/backend",
+  "version": "0.1.0",
+  "description": "Real World backend",
+  "main": "index.js",
+  "author": "Luc <luc@ltv.vn>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "serve": "moleculer-runner --env --repl --hot services --mask **/*.service.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "moleculer": "^0.14.5",
+    "moleculer-web": "^0.9.1"
+  },
+  "devDependencies": {
+    "moleculer-repl": "^0.6.3"
+  }
+}
