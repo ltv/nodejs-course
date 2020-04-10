@@ -1,0 +1,16 @@
+{
+  "name": "@app/database",
+  "version": "0.1.0",
+  "description": "Database migration",
+  "main": "index.js",
+  "author": "Luc <luc@ltv.vn>",
+  "license": "MIT",
+  "scripts": {
+    "migrate": "export NODE_ENV=development && knex migrate:latest"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "knex": "^0.20.13",
+    "pg": "^8.0.2"
+  }
+}
