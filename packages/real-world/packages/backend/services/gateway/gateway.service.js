@@ -11,7 +11,7 @@ module.exports = {
         authentication: false,
         autoAliases: false,
         aliases: {
-          'GET /sum': `${SERVICE_USER}.sum`,
+          'GET /users': `${SERVICE_USER}.getAllUsers`,
         },
         // Use bodyparser modules
         bodyParsers: {

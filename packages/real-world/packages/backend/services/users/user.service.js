@@ -1,17 +1,25 @@
-const { SERVICE_USER } = require('../../constants');
+const { SERVICE_USER, TABLE_USER } = require('../../constants');
 
 module.exports = {
   name: SERVICE_USER,
+  mixins: [],
   actions: {
-    sum: {
+    getAllUsers: {
+      cache: {
+        keys: ['active'],
+        ttl: 10,
+      },
       params: {
-        num1: 'string',
-        num2: 'string',
+        active: {
+          type: 'string',
+          optional: true,
+        },
       },
       handler(ctx) {
-        // get params from ctx.
-        const { num1, num2 } = ctx.params;
-        return parseInt(num1) + parseInt(num2);
+        const { active } = ctx.params;
+        return ctx.call(`db-${TABLE_USER}.find`, {
+          where: { actFlg: active == 'true' },
+        });
       },
     },
   },

@@ -7,15 +7,22 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "serve": "moleculer-runner --env --repl --hot services --mask **/*.service.js"
+    "serve": "moleculer-runner --env --repl --hot services --mask **/*.service.js --envfile=.env.development",
+    "test:unit": "jest --coverage"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
+    "ioredis": "^4.16.2",
+    "knex": "^0.20.13",
     "moleculer": "^0.14.5",
-    "moleculer-web": "^0.9.1"
+    "moleculer-db-knex": "^0.1.13",
+    "moleculer-web": "^0.9.1",
+    "pg": "^8.0.2",
+    "redlock": "^4.1.0"
   },
   "devDependencies": {
+    "jest": "^25.3.0",
     "moleculer-repl": "^0.6.3"
   }
 }

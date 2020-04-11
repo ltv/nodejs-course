@@ -4,6 +4,14 @@ module.exports = {
 
   serializer: 'JSON',
 
+  // cacher: {
+  //   type: 'memory',
+  //   options: {
+  //     ttl: 10, // 30 seconds
+  //   },
+  // },
+  cacher: 'redis://localhost:6379',
+
   //requestTimeout: 10 * 1000,
   retryPolicy: {
     enabled: false,
