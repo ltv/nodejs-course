@@ -1,0 +1,73 @@
+version: "3.6"
+services:
+  postgres105:
+    image: postgres:10.5
+    container_name: postgres105
+    hostname: postgres105
+    restart: always
+    volumes:
+      - postgres105:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - ltv
+    environment:
+      POSTGRES_USER: ltv
+      POSTGRES_PASSWORD: Ltv!@#456
+      POSTGRES_DB: ltv
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    volumes:
+      - ./data/pgadmin4:/var/lib/pgadmin
+    ports:
+      - 5433:80
+    networks:
+      - ltv
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@ltv.vn"
+      PGADMIN_DEFAULT_PASSWORD: "Ltv!@#456"
+
+  nats:
+    image: nats:1.3.0-linux
+    container_name: nats
+    restart: always
+    ports:
+      - 4222:4222
+      - 4444:4444
+      - 6222:6222
+      - 8222:8222
+    networks:
+      - ltv
+
+  redis:
+    image: redis:5-alpine
+    container_name: redis5
+    hostname: redis5
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - ltv
+
+  redis-commander:
+    image: rediscommander/redis-commander
+    container_name: redis-commander
+    hostname: redis-commander
+    restart: always
+    ports:
+      - 6380:8081
+    networks:
+      - ltv
+    environment:
+      REDIS_HOSTS: local:redis5:6379
+
+volumes:
+  pgadmin4:
+  postgres105:
+
+networks:
+  ltv:
+    external: true
