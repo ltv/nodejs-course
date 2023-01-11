@@ -14,7 +14,7 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "ioredis": "^4.16.2",
-    "knex": "^0.20.13",
+    "knex": "^2.4.0",
     "moleculer": "^0.14.5",
     "moleculer-db-knex": "^0.1.13",
     "moleculer-web": "^0.9.1",
